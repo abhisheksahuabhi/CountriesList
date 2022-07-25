@@ -1,42 +1,34 @@
-import React ,{useEffect,useState,useMemo}from 'react';
-import {useTable} from 'react-table';
-import {COLUMNS} from './Columns';
-// this component fetching the API data and here we used react-table library to display the data but its not working properly
-const Table = () => {
+import React ,{useMemo}from 'react';
+import {useTable,useGlobalFilter,useSortBy} from 'react-table';
+import {COLUMNS,GROUPED_COLUMNS} from './Columns';
+import MOCK_DATA from './MOCK_DATA.json';
+
+const BasicTable = () => {
 
 
   
-  const [country, setcountry]=useState([]);
+  
 
-
-
-
-  const getCountries= async ()=>{
-
-      const response= await fetch('https://restcountries.com/v2/all');
-      setcountry(await response.json());
-      //const data=await response.json();
-     // console.log(data);
-
-  }
-
-
-  useEffect(()=>{
-      getCountries();
-  },[]);
-
-const columns= useMemo(()=>COLUMNS,[]);
-const countryData=useMemo(()=>country,[]);
+//const columns= useMemo(()=>COLUMNS,[]);
+const columns= useMemo(()=>GROUPED_COLUMNS,[]);
+const data=useMemo(()=>MOCK_DATA,[]);
 
 
   const tableInstance = useTable({
-    columns:columns,
-    data:countryData
-  })
+    columns,
+    data
+  },useGlobalFilter,useSortBy)
 
 
-  const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
+  const {getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    state,
+    setGlobalFilter,
+    prepareRow}=tableInstance;
 
+    const {globalFilter}=state;
 
     return (
         <>
@@ -44,17 +36,22 @@ const countryData=useMemo(()=>country,[]);
 
       <h1 >List Of Countries</h1>
       <div className="search-btn">
-          <input type="text" /><button className="bg-btn btn">Search</button>
+          <input type="text" value={globalFilter || ''} onChange={(e)=>setGlobalFilter(e.target.value)}/><button className="bg-btn btn">Filter</button>
       </div>
 
-      {/* table  start  */}
+      {/* table  start */}
           <table className="table" {...getTableProps()} >
               
               <thead className="bg-table-header" >
                 {headerGroups.map((headerGroups)=>(
                    <tr {...headerGroups.getHeaderGroupProps()}>
                     {headerGroups.headers.map((columns)=>(
-                       <th scope="col" {...columns.getHeaderProps()}>{columns.render('Header')}</th>
+                       <th scope="col" {...columns.getHeaderProps(columns.getSortByToggleProps())}>
+                        {columns.render('Header')}
+                        <span>
+                          {columns.isSorted ? (columns.isSortedDesc ? '↓' : '↑') : ' '}
+                        </span>
+                        </th>
                     ))}
                  </tr>
 
@@ -88,4 +85,4 @@ const countryData=useMemo(()=>country,[]);
     )
 }
 
-export default Table;
+export default BasicTable;

@@ -1,7 +1,9 @@
 
 import './App.css';
-import ApiFetch from "./Components/ApiFetch";
-
+// import ApiFetch from "./Components/ApiFetch";
+import React from 'react';
+//import Table from './Components/Table';
+import BasicTable from './Components/BasicTable';
 function App() {
   return (
    
@@ -11,7 +13,7 @@ function App() {
         <h1>Welcome to API test fetching</h1> */}
        {/*  </header> */}
         
-      <ApiFetch/> 
+      <BasicTable/> 
     </div> 
     
   );

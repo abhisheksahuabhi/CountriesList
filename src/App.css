@@ -47,6 +47,8 @@
 }
 .table tbody tr td{
   vertical-align: middle;
+  border-width: 2px;
+ 
 }
 .bg-row tr:hover{
   background-color: #bfd1f5;
@@ -56,6 +58,9 @@ tbody{
 }
 .bg-header h1{
   margin: 20px;
+}
+.search-btn{
+  margin-bottom: 10px;
 }
 .search-btn input{
   padding-right: 20px;
@@ -73,6 +78,27 @@ tbody{
 .search-btn button:hover{
   background-color: rgb(32, 193, 225);
 }
+
+.table thead tr th{
+  border-color: #282c34;
+  border-left: #282c34;
+}
+.bg-table-header {
+  background-color: #a6c1f7;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

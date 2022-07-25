@@ -1,6 +1,8 @@
 
 import React,{useState,useEffect} from 'react';
+import {Columns} from './Columns';
 
+// this complete component simply fetching the data from API
 const ApiFetch = () => {
 
 
@@ -25,6 +27,7 @@ const ApiFetch = () => {
 
     return (
         <div className="bg-header">
+
             <h1 >List Of Countries</h1>
             <div className="search-btn">
                 <input type="text" /><button className="bg-btn btn">Search</button>
@@ -32,8 +35,9 @@ const ApiFetch = () => {
 
             {/* table  start */}
                  <table className="table">
-                 <thead>
-                   <tr>
+                    
+                 <thead className="bg-table-header" >
+                   <tr >
                      <th scope="col">S.NO</th>
                      <th scope="col">Country Name</th>
                      <th scope="col">Capital</th>
